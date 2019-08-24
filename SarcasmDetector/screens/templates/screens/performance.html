@@ -1,0 +1,48 @@
+{% extends 'screens/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+	Performance
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+	<style>
+		#nav_Performance, #nav_Performance>a:hover{
+			color: #333 !important;
+			background: #fff !important;
+			font-weight: 500 !important;
+		}
+	</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h3>Performance Analysis:</h3><br><br>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-sm-12">
+          	<div class="thumbnail">
+				<img src="{% static 'media/PA1.jpg' %}" alt="Comparison" width="600px">
+				<div class="caption">
+            	</div>
+        	</div>
+		</div>
+		<div class="col-sm-6 col-md-6 col-sm-12">
+			<div class="thumbnail">
+				<br>
+			  	<img src="{% static 'media/PA2.jpg' %}" alt="Comparison" width="600px">
+			  	<div class="caption">
+			</div>
+		  </div>
+	  </div>
+	</div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+{% endblock %}

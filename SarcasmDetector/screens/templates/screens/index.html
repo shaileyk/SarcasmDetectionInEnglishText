@@ -1,0 +1,57 @@
+{% extends 'screens/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+	Predict
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+	<style>
+		 #nav_Predict, #nav_Predict>a:hover{
+            color: #333 !important;
+            background: #fff !important;
+            font-weight: 500 !important;
+        }
+	</style>
+{% endblock %}
+
+{% block links %}
+	<li><a onclick='clear_all();'>Clear Processing Details</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-lg-6 col-sm-12">
+			<h4>Enter Input String:</h4><br>
+			<a id='random'>Generate a random string</a>
+			<textarea id='input' class='form-control'></textarea>
+			<br>
+			<textarea id='Preprocessed' class='form-control'></textarea><br>
+			{% csrf_token %}
+			
+			<button id='Preprocessing' class='btn btn-primary'>Preprocessing</button>
+			<button id='Predict' class='btn btn-primary'>Predict</button><br><br>
+			<h4>Enter a keyword to get the required tweet:</h4>
+			<input type="text" id='keyword' placeholder="Keyword" class="form-control">
+			<br><button class='btn btn-primary' id='keyword_button' >Get Tweet!</button>
+		</div>
+
+		<div class="col-md-6 col-lg-6 col-sm-12" style="padding-left:25px; height: calc(100vh - 200px); overflow: auto;">
+			<h4>Processing Details:</h4>
+			<p id='results'></p>
+		</div>
+	</div>
+
+</div>
+
+
+
+{% endblock %}
+
+
+{% block js %}
+	<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+{% endblock %}

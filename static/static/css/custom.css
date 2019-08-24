@@ -1,0 +1,55 @@
+#Preprocessed{
+    display: none;
+}
+
+.btn{
+    background: #22313F !important;
+    transition: all 0.4s;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+.btn:hover{
+    background: #18222b !important;
+    transition: all 0.4s;
+}
+
+#input{
+    color: #333 !important;
+    max-width: 100%;
+    max-height: 200px;
+    height: 200px;
+    resize: none;
+
+}
+
+#input:focus{
+    border-color: #aaa;
+    box-shadow: none;
+}
+
+#keyword:focus{
+    border-color: #aaa;
+    box-shadow: none;
+}
+
+p{
+    color: #333 !important;
+}
+
+ul.navbar-right>li>a{
+    color: #333 !important;
+    cursor: pointer;
+}
+
+#random{
+    font-size: 12px;
+    font-weight: 400;
+    color: #797979;
+    cursor: pointer !important;
+}

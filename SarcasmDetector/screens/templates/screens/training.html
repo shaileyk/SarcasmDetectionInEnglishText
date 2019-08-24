@@ -1,0 +1,102 @@
+{% extends 'screens/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+	Training
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <style>
+        #nav_Training, #nav_Training>a:hover{
+            color: #333 !important;
+            background: #fff !important;
+            font-weight: 500 !important;
+        }
+    </style>
+{% endblock %}
+
+{% block links %}
+    <li><a id='SVM' class="tab active_tab">SVM</a></li>
+    <li><a id='NB' class="tab">Naive Bayes</a></li>
+    <li><a id='RF' class="tab">Random Forest</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>Confusion Matrix:</h3><br><br>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-sm-12">
+          <div class="thumbnail">
+            <img src="{% static 'media/CM1.png' %}" alt="SVM Confusion Matrix">
+            <div class="caption">
+            </div>
+          </div>
+        </div>
+    
+
+        <div class="col-sm-6 col-md-6 col-sm-12">
+          <div class="thumbnail">
+              
+            <a data-toggle="modal" data-target="#Code" id='CM'><img src="{% static 'media/SVM_confusion_matrix.png' %}" alt="SVM Confusion Matrix" width="600px" id='CM_IMG'></a>
+            <div class="caption">
+                <br>
+                <p id='accuracy'>Training Accuracy: 81.54%</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="Code" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id='modal-title'>SVM</h4>
+            </div>
+            <div class="modal-body">
+<pre id='definition_code'>
+def svmmodel(X,Y):    
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=42)                
+    Y_train = Y_train.astype('int')
+    Y_test = Y_test.astype('int')
+    text_clf_svm = pipeline.Pipeline([('vect', CountVectorizer()), ('tfidf', feature_extraction.text.TfidfTransformer()), ('clf-svm', SGDClassifier(loss='hinge', alpha=1e-3, max_iter=3, random_state=42)),])
+    parameters_svm = {'vect__ngram_range':[(1, 1), (1, 2)], 'tfidf__use_idf': (True, False), 'clf-svm__alpha': (1e-1, 1e-5),}
+    gs_clf_svm = GridSearchCV(text_clf_svm, parameters_svm, n_jobs=2)
+    gs_clf_svm = gs_clf_svm.fit(X_train, Y_train)
+    predicted = gs_clf_svm.predict(X_test)
+    cm = metrics.confusion_matrix(Y_test,predicted)
+                    
+    # To display the graph                    
+    np.set_printoptions(precision=2)
+                    
+    # Plot non-normalized confusion matrix
+    plt.figure(figsize = (10,7))
+    confusion_matrix_graph(cm,classes = Y_test, title='Confusion matrix, without normalization')
+    plt.show()
+                    
+    # To display the scatter graph for predicted and tested values
+    predic(Y_test, predicted)
+    print(gs_clf_svm.best_score_)
+                        
+    print('....Saving!')
+    joblib.dump(gs_clf_svm, 'resultssvm.pkl') 
+    print('....Saved!')
+                        
+    res.append(gs_clf_svm.best_score_)
+    return gs_clf_svm.best_score_
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+{% endblock %}
